@@ -1,0 +1,52 @@
+.card {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 150ms ease,
+    box-shadow 100ms ease;
+  padding: var(--mantine-spacing-md);
+  padding-left: calc(var(--mantine-spacing-lg));
+  cursor: pointer;
+  @mixin hover {
+    box-shadow: var(--mantine-shadow-sm);
+    transform: scale(1.01);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 6px;
+    background-image: linear-gradient(
+      0,
+      var(--mantine-color-pink-6),
+      var(--mantine-color-orange-6)
+    );
+  }
+}
+
+.card_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  gap: 10;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    gap: 20px 20px;
+  }
+}
+
+.title {
+  max-width: 200px;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}

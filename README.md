@@ -1,34 +1,22 @@
-# Mantine Vite template
+# MantineUI / Vite / CSS modules
 
-## Features
+## Инструкция к запуску проекта 
 
-This template comes with the following features:
+- Выполните git clone проекта в нужную директорию.
 
-- [PostCSS](https://postcss.org/) with [mantine-postcss-preset](https://mantine.dev/styles/postcss-preset)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Storybook](https://storybook.js.org/)
-- [Vitest](https://vitest.dev/) setup with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-- ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
+- В проекте используется пакетный менеджер yarn. Убедитесь, что он установлен глобально на вашем компьютере.
 
-## npm scripts
+- Откройте склонированный проект в вашей IDE и, убедившись, что путь в терминале соответствует корню проекта, установите зависимости командой yarn.
 
-## Build and dev scripts
+- После завершения установки зависимостей запустите проект командой yarn dev.
 
-- `dev` – start development server
-- `build` – build production version of the app
-- `preview` – locally preview production build
 
-### Testing scripts
+## Project Launch Instructions
 
-- `typecheck` – checks TypeScript types
-- `lint` – runs ESLint
-- `prettier:check` – checks files with Prettier
-- `vitest` – runs vitest tests
-- `vitest:watch` – starts vitest watch
-- `test` – runs `vitest`, `prettier:check`, `lint` and `typecheck` scripts
+-  Run git clone to clone the project into your desired directory.
 
-### Other scripts
+-  This project uses Yarn as its package manager. Make sure it is installed globally on your computer.
 
-- `storybook` – starts storybook dev server
-- `storybook:build` – build production storybook bundle to `storybook-static`
-- `prettier:write` – formats all files with Prettier
+-  Open the cloned project in your IDE and, after ensuring the terminal path points to the project root, install the dependencies using the yarn command.
+
+-  After the dependencies have finished installing, start the project with the yarn dev command.
