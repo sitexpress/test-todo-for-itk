@@ -2,15 +2,16 @@ import { Button, Container, Flex } from '@mantine/core';
 import { FilterTodosType } from '@/App.page';
 
 type TodoFilter = {
+  filterTodos:FilterTodosType
   setFilterTodos: (value: FilterTodosType) => void;
 };
 
-export const TodoFilter: React.FC<TodoFilter> = ({ setFilterTodos }) => {
+export const TodoFilter: React.FC<TodoFilter> = ({ filterTodos, setFilterTodos }) => {
   return (
     <Container size="sm">
       <Flex direction="row" justify="center" gap="sm" mt="lg">
         <Button
-          variant="gradient"
+          variant={filterTodos === 'all' ? "gradient" : 'default'}
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
           size="xs"
           onClick={() => setFilterTodos('all')}
@@ -19,7 +20,7 @@ export const TodoFilter: React.FC<TodoFilter> = ({ setFilterTodos }) => {
           Все
         </Button>
         <Button
-          variant="gradient"
+          variant={filterTodos === 'done' ? "gradient" : 'default'}
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
           size="xs"
           onClick={() => setFilterTodos('done')}
@@ -28,7 +29,7 @@ export const TodoFilter: React.FC<TodoFilter> = ({ setFilterTodos }) => {
           Активные
         </Button>
         <Button
-          variant="gradient"
+          variant={filterTodos === 'active' ? "gradient" : 'default'}
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
           size="xs"
           onClick={() => setFilterTodos('active')}

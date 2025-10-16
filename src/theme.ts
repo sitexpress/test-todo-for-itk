@@ -9,4 +9,5 @@ export const theme = createTheme({
     lg: '1275',
     xl: '1800',
   },
+
 });

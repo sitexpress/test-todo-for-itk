@@ -6,6 +6,7 @@ import { Welcome } from './components/Welcome/Welcome';
 import { TodoFilter } from './TodoFilter/TodoFilter';
 import { TodoForm } from './TodoForm/TodoForm';
 import { TodoList } from './TodoList/TodoList';
+import { NumberOfTasks } from './NumberOfTasks/NumberOfTasks';
 
 export type FilterTodosType = 'all' | 'active' | 'done';
 export type TodoListLCDataType = {
@@ -92,7 +93,8 @@ export function AppPage() {
       <Header />
       <Welcome />
       <TodoForm addTask={addTask} />
-      <TodoFilter setFilterTodos={setFilterTodos} />
+      <TodoFilter filterTodos={filterTodos} setFilterTodos={setFilterTodos} />
+      <NumberOfTasks todoListLCData={todoListLCData}/>
       <TodoList
         mockData={todoListLCData}
         removeTask={removeTask}

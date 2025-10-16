@@ -31,7 +31,7 @@ export const TodoList: React.FC<CardsMockDataType> = ({
   );
 
   return (
-    <Container size="lg" py="xl">
+    <Container size="xl" py="xl">
       <SimpleGrid cols={{ base: 1 }} spacing="xl" mt={50}>
         {cards}
       </SimpleGrid>

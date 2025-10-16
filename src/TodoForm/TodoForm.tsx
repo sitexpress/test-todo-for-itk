@@ -27,13 +27,13 @@ export const TodoForm: React.FC<TodoFormType> = ({ addTask }) => {
 
   return (
     <Container size="xl" mt="xl">
-      <Flex direction="row" justify="center" align="center" gap={10}>
+      <Flex direction="row" justify="space-between" align="center" gap={10}>
         <TextInput
           error={error}
           value={inputText}
           placeholder="Введите название задачи"
           size="xs"
-          w="50%"
+          w="100%"
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeHandler(e)}
         />
         <Button
@@ -42,7 +42,7 @@ export const TodoForm: React.FC<TodoFormType> = ({ addTask }) => {
           size="xs"
           onClick={onAddTask}
         >
-          Добавить
+          +
         </Button>
       </Flex>
     </Container>
