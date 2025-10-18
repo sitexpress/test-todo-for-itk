@@ -1,4 +1,6 @@
 .footer {
+  position: stick;
+  bottom: 0;
   margin-top: 120px;
   border-top: 1px solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
 }

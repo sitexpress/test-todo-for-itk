@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
 import { v4 } from 'uuid';
+import { Box, LoadingOverlay } from '@mantine/core';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { Welcome } from './components/Welcome/Welcome';
@@ -26,6 +27,7 @@ type Action =
   | { type: 'CHANGE_STATUS'; id: string; status: StatusTodosType };
 
 export function AppPage() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [filterTodos, setFilterTodos] = useState<FilterTodosType>('all');
   const [todoListLCData, dispatch] = useReducer(reducer, initialData);
 
@@ -88,21 +90,37 @@ export function AppPage() {
     localStorage.setItem('todo-list-test', JSON.stringify(todoListLCData));
   }, [todoListLCData]);
 
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
   return (
     <>
-      <Header />
-      <Welcome />
-      <TodoStats todoListLCData={todoListLCData} />
-      <TodoForm addTask={addTask} />
-      <TodoFilter filterTodos={filterTodos} setFilterTodos={setFilterTodos} />
-      <TodoList
-        mockData={todoListLCData}
-        removeTask={removeTask}
-        changeStatus={changeStatus}
-        filterTodos={filterTodos}
-        editTask={editTask}
-      />
-      <Footer />
+      <Box pos="relative" style={{minHeight: "100vh"}}>
+        <LoadingOverlay
+          visible={isLoading}
+          zIndex={1000}
+          overlayProps={{ radius: 'sm', blur: 2 }}
+          loaderProps={{ color: 'pink', type: 'bars' }}
+        />
+        <Header />
+
+        <Welcome />
+        <TodoStats todoListLCData={todoListLCData} />
+        <TodoForm addTask={addTask} />
+        <TodoFilter filterTodos={filterTodos} setFilterTodos={setFilterTodos} />
+        <TodoList
+          mockData={todoListLCData}
+          removeTask={removeTask}
+          changeStatus={changeStatus}
+          filterTodos={filterTodos}
+          editTask={editTask}
+        />
+        <Footer />
+      </Box>
     </>
   );
 }
