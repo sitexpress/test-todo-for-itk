@@ -1,8 +1,6 @@
 import { ActionIcon, Anchor, Flex, Group, Text } from '@mantine/core';
 import {
-    IconBrandGithub,
-    IconDownload,
-    IconFileCvFilled
+  IconBrandGithub
 } from '@tabler/icons-react';
 import classes from './Footer.module.css';
 

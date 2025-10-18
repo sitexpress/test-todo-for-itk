@@ -1,8 +1,8 @@
 import { useEffect, useReducer, useState } from 'react';
 import { v4 } from 'uuid';
-import { Box, LoadingOverlay } from '@mantine/core';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
+import { LoaderComponent } from './components/Loader/Loader';
 import { Welcome } from './components/Welcome/Welcome';
 import { TodoFilter } from './TodoFilter/TodoFilter';
 import { TodoForm } from './TodoForm/TodoForm';
@@ -97,30 +97,24 @@ export function AppPage() {
     }, 2000);
   }, []);
 
+  if (isLoading) {
+    return <LoaderComponent />;
+  }
   return (
     <>
-      <Box pos="relative" style={{minHeight: "100vh"}}>
-        <LoadingOverlay
-          visible={isLoading}
-          zIndex={1000}
-          overlayProps={{ radius: 'sm', blur: 2 }}
-          loaderProps={{ color: 'pink', type: 'bars' }}
-        />
-        <Header />
-
-        <Welcome />
-        <TodoStats todoListLCData={todoListLCData} />
-        <TodoForm addTask={addTask} />
-        <TodoFilter filterTodos={filterTodos} setFilterTodos={setFilterTodos} />
-        <TodoList
-          mockData={todoListLCData}
-          removeTask={removeTask}
-          changeStatus={changeStatus}
-          filterTodos={filterTodos}
-          editTask={editTask}
-        />
-        <Footer />
-      </Box>
+      <Header />
+      <Welcome />
+      <TodoStats todoListLCData={todoListLCData} />
+      <TodoForm addTask={addTask} />
+      <TodoFilter filterTodos={filterTodos} setFilterTodos={setFilterTodos} />
+      <TodoList
+        mockData={todoListLCData}
+        removeTask={removeTask}
+        changeStatus={changeStatus}
+        filterTodos={filterTodos}
+        editTask={editTask}
+      />
+      <Footer />
     </>
   );
 }
