@@ -11,7 +11,7 @@ export const TodoFilter: React.FC<TodoFilter> = ({ filterTodos, setFilterTodos }
     <Container size="sm">
       <Flex direction="row" justify="center" gap="sm" mt="lg">
         <Button
-          variant={filterTodos === 'all' ? "gradient" : 'default'}
+          variant={filterTodos === 'all' ? "gradient" : 'light'}
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
           size="xs"
           onClick={() => setFilterTodos('all')}
@@ -20,7 +20,7 @@ export const TodoFilter: React.FC<TodoFilter> = ({ filterTodos, setFilterTodos }
           Все
         </Button>
         <Button
-          variant={filterTodos === 'done' ? "gradient" : 'default'}
+          variant={filterTodos === 'done' ? "gradient" : 'light'}
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
           size="xs"
           onClick={() => setFilterTodos('done')}
@@ -29,13 +29,13 @@ export const TodoFilter: React.FC<TodoFilter> = ({ filterTodos, setFilterTodos }
           Активные
         </Button>
         <Button
-          variant={filterTodos === 'active' ? "gradient" : 'default'}
+          variant={filterTodos === 'active' ? "gradient" : 'light'}
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
           size="xs"
           onClick={() => setFilterTodos('active')}
           w="120"
         >
-          Выполненные
+          Завершены
         </Button>
       </Flex>
     </Container>

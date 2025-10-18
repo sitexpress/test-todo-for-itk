@@ -6,13 +6,14 @@ import { Welcome } from './components/Welcome/Welcome';
 import { TodoFilter } from './TodoFilter/TodoFilter';
 import { TodoForm } from './TodoForm/TodoForm';
 import { TodoList } from './TodoList/TodoList';
-import { NumberOfTasks } from './NumberOfTasks/NumberOfTasks';
+import { TodoStats } from './TodoStats/TodoStats';
 
 export type FilterTodosType = 'all' | 'active' | 'done';
+export type StatusTodosType = 'active' | 'done';
 export type TodoListLCDataType = {
   id: string;
   title: string;
-  status: 'active' | 'done';
+  status: StatusTodosType;
 };
 
 const initialData: TodoListLCDataType[] = [];
@@ -22,7 +23,7 @@ type Action =
   | { type: 'ADD_TASK'; title: string }
   | { type: 'EDIT_TASK'; id: string; newTitle: string }
   | { type: 'REMOVE_TASK'; id: string }
-  | { type: 'CHANGE_STATUS'; id: string; status: 'active' | 'done' };
+  | { type: 'CHANGE_STATUS'; id: string; status: StatusTodosType };
 
 export function AppPage() {
   const [filterTodos, setFilterTodos] = useState<FilterTodosType>('all');
@@ -36,7 +37,9 @@ export function AppPage() {
         return [{ id: v4(), title: action.title, status: 'active' }, ...state];
       case 'EDIT_TASK':
         return state.map((item) =>
-          item.id === action.id ? { id:item.id, title: action.newTitle, status: item.status } : item
+          item.id === action.id
+            ? { id: item.id, title: action.newTitle, status: item.status }
+            : item
         );
       case 'CHANGE_STATUS':
         return state.map((item) =>
@@ -57,7 +60,7 @@ export function AppPage() {
   const addTask = (title: string) => {
     dispatch({ type: 'ADD_TASK', title });
   };
-  
+
   const editTask = (id: string, newTitle: string) => {
     dispatch({ type: 'EDIT_TASK', id, newTitle });
   };
@@ -66,10 +69,9 @@ export function AppPage() {
     dispatch({ type: 'REMOVE_TASK', id });
   };
 
-  const changeStatus = (id: string, status: 'active' | 'done') => {
+  const changeStatus = (id: string, status: StatusTodosType) => {
     dispatch({ type: 'CHANGE_STATUS', id, status });
   };
-
 
   useEffect(() => {
     const savedData = localStorage.getItem('todo-list-test');
@@ -83,18 +85,16 @@ export function AppPage() {
   }, []);
 
   useEffect(() => {
-    if (todoListLCData?.length > 0) {
-      localStorage.setItem('todo-list-test', JSON.stringify(todoListLCData));
-    }
+    localStorage.setItem('todo-list-test', JSON.stringify(todoListLCData));
   }, [todoListLCData]);
 
   return (
     <>
       <Header />
       <Welcome />
+      <TodoStats todoListLCData={todoListLCData} />
       <TodoForm addTask={addTask} />
       <TodoFilter filterTodos={filterTodos} setFilterTodos={setFilterTodos} />
-      <NumberOfTasks todoListLCData={todoListLCData}/>
       <TodoList
         mockData={todoListLCData}
         removeTask={removeTask}
