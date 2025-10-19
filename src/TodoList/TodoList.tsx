@@ -1,14 +1,22 @@
-import { Container, SimpleGrid } from '@mantine/core';
-import { FilterTodosType, StatusTodosType, TodoListLCDataType } from '@/App.page';
-import { TodoItem } from '../TodoItem/TodoItem';
 import { useState } from 'react';
+import { Container, SimpleGrid } from '@mantine/core';
+import {
+  FilterTodosType,
+  StatusTodosType,
+  TodoItemAnimationType,
+  TodoListLCDataType,
+} from '@/App.page';
+import { TodoItem } from '../TodoItem/TodoItem';
 
 interface CardsMockDataType {
   mockData: TodoListLCDataType[];
   removeTask: (id: string) => void;
   changeStatus: (id: string, status: StatusTodosType) => void;
   filterTodos: FilterTodosType;
-  editTask:(id: string, newTitle: string) => void;
+  editTask: (id: string, newTitle: string) => void;
+  todoItemAnimation: TodoItemAnimationType;
+  setTodoItemAnimation: (value: TodoItemAnimationType) => void;
+  addedTaskId: string;
 }
 
 export const TodoList: React.FC<CardsMockDataType> = ({
@@ -16,27 +24,37 @@ export const TodoList: React.FC<CardsMockDataType> = ({
   removeTask,
   changeStatus,
   filterTodos,
-  editTask
+  editTask,
+  todoItemAnimation,
+  addedTaskId,
+  setTodoItemAnimation,
 }) => {
-    const [newTitle, setNewTitle] = useState<string>("");
-  const cards = mockData.map((todoItem, i) =>
-    todoItem.status !== filterTodos && (
-      <TodoItem
-        key={i}
-        {...todoItem}
-        removeTask={removeTask}
-        changeStatus={changeStatus}
-        filterTodos={filterTodos}
-        editTask={editTask}
-        newTitle={newTitle}
-        setNewTitle={setNewTitle}
-      />
-    )
+  const [newTitle, setNewTitle] = useState<string>('');
+    const [editedTaskId, setEditedTaskId] = useState('');
+  const cards = mockData.map(
+    (todoItem, i) =>
+      todoItem.status !== filterTodos && (
+        <TodoItem
+          key={i}
+          {...todoItem}
+          removeTask={removeTask}
+          changeStatus={changeStatus}
+          filterTodos={filterTodos}
+          editTask={editTask}
+          newTitle={newTitle}
+          setNewTitle={setNewTitle}
+          todoItemAnimation={todoItemAnimation}
+          addedTaskId={addedTaskId}
+          setTodoItemAnimation={setTodoItemAnimation}
+          editedTaskId={editedTaskId}
+          setEditedTaskId={setEditedTaskId}
+        />
+      )
   );
 
   return (
-    <Container size="xl" py="xl">
-      <SimpleGrid cols={{ base: 1 }} spacing="xs" >
+    <Container size="xl" py="xl" style={{ minHeight: '25vh' }}>
+      <SimpleGrid cols={{ base: 1 }} spacing="xs">
         {cards}
       </SimpleGrid>
     </Container>

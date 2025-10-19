@@ -1,7 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import { IconDeviceFloppy, IconEdit } from '@tabler/icons-react';
+import { playSound } from 'react-sounds';
 import { Button, Checkbox, CloseButton, Flex, Paper, Text, TextInput } from '@mantine/core';
-import { FilterTodosType, StatusTodosType } from '@/App.page';
+import { FilterTodosType, StatusTodosType, TodoItemAnimationType } from '@/App.page';
 import classes from './TodoItem.module.css';
 
 type CardComponentTodoItem = {
@@ -14,6 +15,11 @@ type CardComponentTodoItem = {
   editTask: (id: string, newTitle: string) => void;
   newTitle: string;
   setNewTitle: (newTitle: string) => void;
+  todoItemAnimation: TodoItemAnimationType;
+  setTodoItemAnimation: (value: TodoItemAnimationType) => void;
+  addedTaskId: string;
+  editedTaskId: string;
+  setEditedTaskId: (value: string) => void;
 };
 
 export const TodoItem: React.FC<CardComponentTodoItem> = ({
@@ -25,44 +31,70 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
   editTask,
   newTitle,
   setNewTitle,
+  todoItemAnimation,
+  setTodoItemAnimation,
+  addedTaskId,
+  editedTaskId,
+  setEditedTaskId,
 }) => {
-  // const [newTitle, setNewtitle] = useState<string>(title);
   const [error, setError] = useState<
     '' | '*название не должно превышать 140 символов!' | '*название не может быть пустым!'
   >('');
   const [isTitleEdit, setIsTitleEdit] = useState(false);
+  const doneTaskSound = () => playSound('ui/tab_close');
+  const undoneTaskSound = () => playSound('ui/radio_select');
+  const errAddTaskSound = () => playSound('notification/error');
+  const removeTaskSound = () => playSound('ui/toggle_on');
+  const editTaskSound = () => playSound('ui/window_close');
+  const saveTaskSound = () => playSound('ui/window_open');
+  const rejectTaskSound = () => playSound('system/lock');
 
   const onCloseHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: string) => {
     e.stopPropagation();
     removeTask(id);
   };
-
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>, id: string) => {
     setError('');
     const value = e.currentTarget.value;
     if (!value.trim().length) {
       setNewTitle('');
       return setError('*название не может быть пустым!');
+    } else if (addedTaskId === id) {
+      setNewTitle(value);
     }
     setNewTitle(value);
   };
 
   const onEditTitleHandler = (actionType: string, id?: string) => {
+
     if (actionType === 'edit') {
       setIsTitleEdit(true);
+      editTaskSound();
       setNewTitle(title);
+      setTodoItemAnimation('animate__animated animate__bounceIn');
+      setTimeout(() => {
+        setTodoItemAnimation('');
+      }, 500);
     }
     if (actionType === 'save') {
+  
       if (isTitleEdit) {
         if (!newTitle.trim().length) {
+          errAddTaskSound();
           return setError('*название не может быть пустым!');
         }
         if (newTitle.length > 140) {
+          errAddTaskSound();
           return setError('*название не должно превышать 140 символов!');
         }
-        setError('');
         setIsTitleEdit(false);
+        saveTaskSound();
+        setError('');
         id && editTask(id, newTitle);
+        setTodoItemAnimation('animate__animated animate__bounceIn');
+        setTimeout(() => {
+          setTodoItemAnimation('');
+        }, 500);
       }
     }
   };
@@ -72,18 +104,27 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
       e.preventDefault();
 
       if (!newTitle.trim().length) {
+        errAddTaskSound();
         return setError('*название не может быть пустым!');
       }
 
       if (newTitle.length > 140) {
+        errAddTaskSound();
         return setError('*название не должно превышать 140 символов!');
       }
+      saveTaskSound();
       setError('');
       setIsTitleEdit(false);
       id && editTask(id, newTitle);
+      setTodoItemAnimation('animate__animated animate__bounceIn');
+      setTimeout(() => {
+        setTodoItemAnimation('');
+      }, 500);
     }
 
     if (e.key === 'Escape') {
+      rejectTaskSound();
+      setError('');
       e.preventDefault();
       setNewTitle(title);
       setIsTitleEdit(false);
@@ -91,10 +132,13 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
   };
 
   const onChangeStatusHandler = (id: string, status: StatusTodosType) => {
-    if (isTitleEdit) {
-      return;
-    }
+    // if (isTitleEdit) {
+    //   return;
+    // }
+
     changeStatus(id, status === 'active' ? 'done' : 'active');
+    status === 'active' && doneTaskSound();
+    status === 'done' && undoneTaskSound();
   };
 
   return (
@@ -102,16 +146,15 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
       withBorder
       mt={0}
       radius="md"
-      className={classes.card}
+      className={`${addedTaskId === id && todoItemAnimation}, ${status === 'done' ? classes.card_done : classes.card}`}
       onClick={() => onChangeStatusHandler(id, status)}
     >
       <Text
         fz="sm"
         fw={500}
-        // c={status === 'done' ? 'teal.6' : 'orange.8'}
         c="white"
         w="20"
-        className={classes.status}
+        className={`${addedTaskId === id && todoItemAnimation}, ${classes.status}`}
       >
         {status}
       </Text>
@@ -126,15 +169,16 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
             color="teal.3"
             pl={10}
           />
-          {isTitleEdit ? (
+          {isTitleEdit && id === editedTaskId ? (
             <TextInput
+              className={`${editedTaskId === id && todoItemAnimation}`}
               w="250"
               autoFocus
               error={!!error && error}
               value={newTitle}
               placeholder="Введите название задачи"
               size="xs"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeHandler(e)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => onChangeHandler(e, id)}
               onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                 e.stopPropagation();
               }}
@@ -142,14 +186,13 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
             />
           ) : (
             <Text
-              className={classes.title}
+              className={`${editedTaskId === id && todoItemAnimation} ${classes.title}`}
               size="md"
               style={{ maxWidth: '600px' }}
               maw={600}
               miw={100}
               w="100%"
               ta="left"
-              // lineClamp={3}
               truncate="end"
               c={status === 'done' ? 'dimmed' : ''}
               td={status === 'done' ? 'line-through' : ''}
@@ -166,7 +209,8 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
             size="xs"
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               e.stopPropagation();
-              onEditTitleHandler('edit');
+              onEditTitleHandler('edit', id);
+              setEditedTaskId(id);
             }}
           >
             <IconEdit />
@@ -184,7 +228,15 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
             <IconDeviceFloppy />
           </Button>
 
-          <Button size="xs" variant="light" color="red.4" onClick={(e) => onCloseHandler(e, id)}>
+          <Button
+            size="xs"
+            variant="light"
+            color="red.4"
+            onClick={(e) => {
+              onCloseHandler(e, id);
+              removeTaskSound();
+            }}
+          >
             <CloseButton component="span" variant="transparent" />
           </Button>
         </Flex>
