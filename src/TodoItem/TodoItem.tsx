@@ -71,7 +71,7 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
       setIsTitleEdit(true);
       editTaskSound();
       setNewTitle(title);
-      setTodoItemAnimation('animate__animated animate__bounceIn');
+      setTodoItemAnimation('');
       setTimeout(() => {
         setTodoItemAnimation('');
       }, 500);
@@ -91,7 +91,7 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
         saveTaskSound();
         setError('');
         id && editTask(id, newTitle);
-        setTodoItemAnimation('animate__animated animate__bounceIn');
+        setTodoItemAnimation('');
         setTimeout(() => {
           setTodoItemAnimation('');
         }, 500);
@@ -171,7 +171,7 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
           />
           {isTitleEdit && id === editedTaskId ? (
             <TextInput
-              className={`${editedTaskId === id && todoItemAnimation}`}
+              className={`${addedTaskId === id && todoItemAnimation}`}
               w="250"
               autoFocus
               error={!!error && error}
@@ -186,7 +186,7 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
             />
           ) : (
             <Text
-              className={`${editedTaskId === id && todoItemAnimation} ${classes.title}`}
+              className={`${addedTaskId === id && todoItemAnimation} ${classes.title}`}
               size="md"
               style={{ maxWidth: '600px' }}
               maw={600}
