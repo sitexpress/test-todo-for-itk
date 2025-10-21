@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconRadio, IconRadioOff } from '@tabler/icons-react';
 import { useSound } from 'react-sounds';
 import { Button, Group } from '@mantine/core';
 
-export function RadioStation() {
+type RadioStationType = {
+  isMuted: boolean;
+};
+export const RadioStation: React.FC<RadioStationType> = ({ isMuted }) => {
   const [isRadioOn, setIsRadioOn] = useState<boolean>(true);
   const { play: campfireSoundPlay, stop: campfireSoundStop } = useSound('ambient/campfire', {
     volume: 0.5,
@@ -13,15 +16,14 @@ export function RadioStation() {
 
   const onSetRadioStationHandler = (turn: boolean) => {
     setIsRadioOn(turn);
+
     if (isRadioOn) {
       campfireSoundPlay();
     }
-
     if (!isRadioOn) {
       campfireSoundStop();
     }
   };
-
 
   return (
     <Group justify="center">
@@ -36,4 +38,4 @@ export function RadioStation() {
       )}
     </Group>
   );
-}
+};

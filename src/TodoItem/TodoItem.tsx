@@ -77,7 +77,6 @@ export const TodoItem: React.FC<CardComponentTodoItem> = ({
       }, 500);
     }
     if (actionType === 'save') {
-  
       if (isTitleEdit) {
         if (!newTitle.trim().length) {
           errAddTaskSound();

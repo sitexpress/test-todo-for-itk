@@ -2,8 +2,11 @@ import { Container, Flex, Text } from '@mantine/core';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import { RadioStation } from '../RadioStation/RadioStation';
 import classes from './Header.module.css';
+import { Mute } from '../Mute/Mute';
+import { useState } from 'react';
 
 export const Header = () => {
+    const [isMuted, setIsMuted] = useState<boolean>(false);
   return (
     <header className={classes.header}>
       <Container size="xl" className={classes.inner}>
@@ -18,7 +21,8 @@ export const Header = () => {
         </Text>
         <Flex direction="row" align="center" gap={10}>
           <ColorSchemeToggle />
-          <RadioStation />
+          <RadioStation isMuted={isMuted}/>
+          <Mute isMuted={isMuted} setIsMuted={setIsMuted} />
         </Flex>
       </Container>
     </header>
