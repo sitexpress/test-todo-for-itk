@@ -20,12 +20,12 @@ export const TodoStats: React.FC<NumberOfTasksType> = ({ todoListLCData }) => {
   };
 
   const data = [
-    { label: 'Все задачи', stats: `${allTasks}`, progress: 100, color: 'red.4', icon: 'down' },
+    { label: 'Все задачи', stats: `${allTasks}`, progress: 100, color: 'blue', icon: 'up' },
     {
       label: 'В процессе',
       stats: `${activeTasks}`,
       progress: Number(`${activeTasksPercentage}`),
-      color: 'blue',
+      color: 'orange',
       icon: 'up',
     },
     {
@@ -33,7 +33,7 @@ export const TodoStats: React.FC<NumberOfTasksType> = ({ todoListLCData }) => {
       stats: `${finishedTasks}`,
       progress: Number(`${activeFinishedTasksPercentage}`),
       color: 'teal.4',
-      icon: 'up',
+      icon: 'down',
     },
   ] as const;
 

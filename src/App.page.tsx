@@ -1,7 +1,7 @@
+import { Box, LoadingOverlay } from '@mantine/core';
 import { useEffect, useReducer, useState } from 'react';
 import { playSound } from 'react-sounds';
 import { v4 } from 'uuid';
-import { Box, LoadingOverlay } from '@mantine/core';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { Welcome } from './components/Welcome/Welcome';
@@ -35,7 +35,8 @@ export function AppPage() {
   const [todoListLCData, dispatch] = useReducer(reducer, initialData);
   const [todoItemAnimation, setTodoItemAnimation] = useState<TodoItemAnimationType>('');
   const [addedTaskId, setAddedId] = useState('');
-  const campfireSound = () => playSound('system/boot_up');
+
+  const systemBootUp = () => playSound('system/boot_up');
 
   function reducer(state: TodoListLCDataType[], action: Action): TodoListLCDataType[] {
     switch (action.type) {
@@ -84,7 +85,6 @@ export function AppPage() {
   };
 
   useEffect(() => {
-    campfireSound()
     const savedData = localStorage.getItem('todo-list-test');
     if (!savedData) {
       localStorage.setItem('todo-list-test', JSON.stringify([]));
@@ -100,11 +100,13 @@ export function AppPage() {
   }, [todoListLCData]);
 
   useEffect(() => {
+    systemBootUp();
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
   }, []);
+
 
   return (
     <>

@@ -1,5 +1,6 @@
-import { Container, Text } from '@mantine/core';
+import { Container, Flex, Text } from '@mantine/core';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
+import { RadioStation } from '../RadioStation/RadioStation';
 import classes from './Header.module.css';
 
 export const Header = () => {
@@ -15,7 +16,10 @@ export const Header = () => {
         >
           Todo-list
         </Text>
-        <ColorSchemeToggle />
+        <Flex direction="row" align="center" gap={10}>
+          <ColorSchemeToggle />
+          <RadioStation />
+        </Flex>
       </Container>
     </header>
   );
