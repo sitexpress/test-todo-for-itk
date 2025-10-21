@@ -6,7 +6,7 @@ import classes from './Header.module.css';
 export const Header = () => {
   return (
     <header className={classes.header}>
-      <Container size="md" className={classes.inner}>
+      <Container size="xl" className={classes.inner}>
         <Text
           inherit
           variant="gradient"

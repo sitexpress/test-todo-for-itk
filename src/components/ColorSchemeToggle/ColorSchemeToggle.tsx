@@ -19,11 +19,11 @@ export function ColorSchemeToggle() {
   return (
     <Group justify="center">
       {colorScheme === 'light' ? (
-        <Button variant='light' onClick={() => onSetColorSchemeHandler('dark')}>
+        <Button  size="xs" variant='light' onClick={() => onSetColorSchemeHandler('dark')}>
           <IconSunFilled  />
         </Button>
       ) : (
-        <Button variant='light' onClick={() => onSetColorSchemeHandler('light')}>
+        <Button  size="xs" variant='light' onClick={() => onSetColorSchemeHandler('light')}>
           <IconMoonStars  />
         </Button>
       )}
