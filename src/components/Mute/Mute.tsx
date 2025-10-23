@@ -1,6 +1,6 @@
+import { Button, Group } from '@mantine/core';
 import { IconVolume, IconVolumeOff } from '@tabler/icons-react';
 import { setSoundEnabled } from 'react-sounds';
-import { Button, Group } from '@mantine/core';
 
 type MutedType = {
   isMuted: boolean;
@@ -21,11 +21,11 @@ export const Mute: React.FC<MutedType> = ({ isMuted, setIsMuted }) => {
   return (
     <Group justify="center">
       {isMuted ? (
-        <Button size="xs" variant="light" onClick={() => Mute(false)}>
+        <Button size="sm" variant="light" onClick={() => Mute(false)}>
           <IconVolumeOff />
         </Button>
       ) : (
-        <Button size="xs" variant="light" onClick={() => Mute(true)}>
+        <Button size="sm" variant="light" onClick={() => Mute(true)}>
           <IconVolume />
         </Button>
       )}

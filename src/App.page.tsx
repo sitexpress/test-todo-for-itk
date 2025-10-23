@@ -52,7 +52,7 @@ export function AppPage() {
         );
       case 'CHANGE_STATUS':
         return state.map((item) =>
-          item.id === action.id ? { id: action.id, title: item.title, status: action.status } : item
+          item.id === action.id ? { ...item, status: action.status } : item
         );
 
       case 'REMOVE_TASK':
@@ -85,6 +85,7 @@ export function AppPage() {
   };
 
   useEffect(() => {
+    
     const savedData = localStorage.getItem('todo-list-test');
     if (!savedData) {
       localStorage.setItem('todo-list-test', JSON.stringify([]));
