@@ -1,5 +1,5 @@
+import { Flex, Text } from '@mantine/core';
 import { useState } from 'react';
-import { Container, Flex, Text } from '@mantine/core';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
 import { Mute } from '../Mute/Mute';
 import { RadioStation } from '../RadioStation/RadioStation';
@@ -9,7 +9,7 @@ export const Header = () => {
   const [isMuted, setIsMuted] = useState<boolean>(false);
   return (
     <header className={classes.header}>
-      <Container size="xl" className={classes.inner}>
+      <Flex className={classes.inner}>
         <Text
           inherit
           variant="gradient"
@@ -19,12 +19,13 @@ export const Header = () => {
         >
           Todo-list
         </Text>
+
         <Flex direction="row" align="center" gap={10}>
           <ColorSchemeToggle />
           <RadioStation isMuted={isMuted} />
           <Mute isMuted={isMuted} setIsMuted={setIsMuted} />
         </Flex>
-      </Container>
+      </Flex>
     </header>
   );
 };

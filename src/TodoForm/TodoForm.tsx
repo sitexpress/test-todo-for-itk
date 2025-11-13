@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { playSound } from 'react-sounds';
 import { Button, Container, Flex, TextInput } from '@mantine/core';
-import { TodoItemAnimationType } from '@/App.page';
+import { TodoItemAnimationType } from '@/pages/Todo-page/Todo.page';
 
 type TodoFormType = {
   addTask: (value: string) => void;
@@ -65,7 +65,7 @@ export const TodoForm: React.FC<TodoFormType> = ({ addTask, setTodoItemAnimation
   };
 
   return (
-    <Container size="xl" mt="xl">
+    <Container size="xl" mt="xs">
       <Flex direction="row" justify="space-between" align="start" gap={10}>
         <div style={{ position: 'relative', minHeight: '40px', width: '100%' }}>
           <TextInput

@@ -1,6 +1,6 @@
 import { playSound } from 'react-sounds';
 import { Button, Container, Flex } from '@mantine/core';
-import { FilterTodosType } from '@/App.page';
+import { FilterTodosType } from '@/pages/Todo-page/Todo.page';
 
 type TodoFilter = {
   filterTodos: FilterTodosType;
@@ -11,8 +11,8 @@ export const TodoFilter: React.FC<TodoFilter> = ({ filterTodos, setFilterTodos }
   const tabsSound = () => playSound('ui/input_focus');
 
   return (
-    <Container size="sm">
-      <Flex direction="row" justify="center" gap="sm" mt="lg">
+    <Container size="sm" mt="xs">
+      <Flex direction="row" justify="center" gap="sm" >
         <Button
           variant={filterTodos === 'all' ? 'gradient' : 'light'}
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}

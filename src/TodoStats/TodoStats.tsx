@@ -1,6 +1,6 @@
-import { IconArrowDownRight, IconArrowUpRight } from '@tabler/icons-react';
-import { Center, Flex, Paper, RingProgress, SimpleGrid, Text } from '@mantine/core';
-import { TodoListLCDataType } from '@/App.page';
+import { IconArrowDownRight, IconArrowUpRight, IconHourglassEmpty } from '@tabler/icons-react';
+import { Center, Flex, Group, Paper, RingProgress, SimpleGrid, Text } from '@mantine/core';
+import { TodoListLCDataType } from '@/pages/Todo-page/Todo.page';
 
 type NumberOfTasksType = {
   todoListLCData: TodoListLCDataType[];
@@ -8,8 +8,8 @@ type NumberOfTasksType = {
 
 export const TodoStats: React.FC<NumberOfTasksType> = ({ todoListLCData }) => {
   const allTasks = todoListLCData.length;
-  const activeTasks = todoListLCData.filter(item => item.status === 'active' && item).length;
-  const finishedTasks = todoListLCData.filter(item => item.status === 'done' && item).length;
+  const activeTasks = todoListLCData.filter((item) => item.status === 'active' && item).length;
+  const finishedTasks = todoListLCData.filter((item) => item.status === 'done' && item).length;
 
   const activeTasksPercentage = (activeTasks / allTasks) * 100;
   const activeFinishedTasksPercentage = (finishedTasks / allTasks) * 100;
@@ -17,12 +17,13 @@ export const TodoStats: React.FC<NumberOfTasksType> = ({ todoListLCData }) => {
   const icons = {
     up: IconArrowUpRight,
     down: IconArrowDownRight,
+    timer: IconHourglassEmpty,
   };
 
   const data = [
-    { label: 'Все задачи', stats: `${allTasks}`, progress: 100, color: 'blue', icon: 'up' },
+    { label: 'Все', stats: `${allTasks}`, progress: 100, color: 'blue', icon: 'up' },
     {
-      label: 'В процессе',
+      label: 'В работе',
       stats: `${activeTasks}`,
       progress: Number(`${activeTasksPercentage}`),
       color: 'orange',
@@ -55,10 +56,24 @@ export const TodoStats: React.FC<NumberOfTasksType> = ({ todoListLCData }) => {
           />
 
           <Flex direction="column" justify="center" align="center">
-            <Text c="dimmed" size="xs" tt="uppercase" fw={700}>
+            <Text
+              c="dimmed"
+              size="xs"
+              tt="uppercase"
+              fw={700}
+              style={{
+                userSelect: 'none',
+              }}
+            >
               {stat.label}
             </Text>
-            <Text fw={700} size="xs">
+            <Text
+              fw={700}
+              size="xs"
+              style={{
+                userSelect: 'none',
+              }}
+            >
               {stat.stats}
             </Text>
           </Flex>
@@ -68,8 +83,16 @@ export const TodoStats: React.FC<NumberOfTasksType> = ({ todoListLCData }) => {
   });
 
   return (
-    <Flex justify="center" mt={20}>
-      <SimpleGrid cols={{ base: 3, sm: 1 }}>{stats}</SimpleGrid>
+    <Flex justify="center">
+      <Group
+        style={{ border: '1px solid grey', borderRadius: '30px', maxWidth: '500px' }}
+        p={30}
+        m={10}
+      >
+        <SimpleGrid cols={{ base: 3, sm: 1 }} spacing={{ base: 50 }}>
+          {stats}
+        </SimpleGrid>
+      </Group>
     </Flex>
   );
 };

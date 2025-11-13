@@ -2,8 +2,8 @@ import { ChangeEvent, useState } from 'react';
 import { IconDeviceFloppy, IconEdit } from '@tabler/icons-react';
 import { playSound } from 'react-sounds';
 import { Button, Checkbox, CloseButton, Flex, Paper, Text, TextInput } from '@mantine/core';
-import { FilterTodosType, StatusTodosType, TodoItemAnimationType } from '@/App.page';
 import classes from './TodoItem.module.css';
+import { FilterTodosType, StatusTodosType, TodoItemAnimationType } from '@/pages/Todo-page/Todo.page';
 
 type CardComponentTodoItem = {
   id: string;

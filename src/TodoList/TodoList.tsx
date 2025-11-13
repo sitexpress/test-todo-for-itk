@@ -1,12 +1,8 @@
 import { useState } from 'react';
 import { Container, SimpleGrid } from '@mantine/core';
-import {
-  FilterTodosType,
-  StatusTodosType,
-  TodoItemAnimationType,
-  TodoListLCDataType,
-} from '@/App.page';
+
 import { TodoItem } from '../TodoItem/TodoItem';
+import { FilterTodosType, StatusTodosType, TodoItemAnimationType, TodoListLCDataType } from '@/pages/Todo-page/Todo.page';
 
 interface CardsMockDataType {
   mockData: TodoListLCDataType[];

@@ -1,14 +1,15 @@
+import { Pomodoro } from '@/components/Pomodoro/Pomodoro';
 import { Box, LoadingOverlay } from '@mantine/core';
 import { useEffect, useReducer, useState } from 'react';
 import { playSound } from 'react-sounds';
 import { v4 } from 'uuid';
-import { Footer } from './components/Footer/Footer';
-import { Header } from './components/Header/Header';
-import { Welcome } from './components/Welcome/Welcome';
-import { TodoFilter } from './TodoFilter/TodoFilter';
-import { TodoForm } from './TodoForm/TodoForm';
-import { TodoList } from './TodoList/TodoList';
-import { TodoStats } from './TodoStats/TodoStats';
+import { Footer } from '../../components/Footer/Footer';
+import { Header } from '../../components/Header/Header';
+import { Welcome } from '../../components/Welcome/Welcome';
+import { TodoFilter } from '../../TodoFilter/TodoFilter';
+import { TodoForm } from '../../TodoForm/TodoForm';
+import { TodoList } from '../../TodoList/TodoList';
+import { TodoStats } from '../../TodoStats/TodoStats';
 
 export type TodoItemAnimationType = 'animate__animated animate__bounceIn' | '';
 
@@ -54,7 +55,6 @@ export function AppPage() {
         return state.map((item) =>
           item.id === action.id ? { ...item, status: action.status } : item
         );
-
       case 'REMOVE_TASK':
         return state.filter((item) => item.id !== action.id);
       default:
@@ -85,7 +85,6 @@ export function AppPage() {
   };
 
   useEffect(() => {
-    
     const savedData = localStorage.getItem('todo-list-test');
     if (!savedData) {
       localStorage.setItem('todo-list-test', JSON.stringify([]));
@@ -101,13 +100,12 @@ export function AppPage() {
   }, [todoListLCData]);
 
   useEffect(() => {
-    systemBootUp();
+    // systemBootUp();
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
   }, []);
-
 
   return (
     <>
@@ -120,6 +118,7 @@ export function AppPage() {
         />
         <Header />
         <Welcome isLoading={isLoading} />
+        <Pomodoro />
         <TodoStats todoListLCData={todoListLCData} />
         <TodoForm addTask={addTask} setTodoItemAnimation={setTodoItemAnimation} />
         <TodoFilter filterTodos={filterTodos} setFilterTodos={setFilterTodos} />
