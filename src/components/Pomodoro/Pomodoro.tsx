@@ -35,7 +35,7 @@ interface PomodoroPersistentData {
   activeSession: 'work' | 'break' | null;
   selectedMode: 'work' | 'break';
   workTime: 15 | 30 | 60;
-  breakTime: 15 | 30 | 60;
+  breakTime: 5 | 15 | 30 | 60;
   workTimeLeft: number;
   breakTimeLeft: number;
   isWorkRunning: boolean;
@@ -48,7 +48,7 @@ interface PomodoroPersistentData {
 
 export const Pomodoro = () => {
   const [workTime, setWorkTime] = useState<15 | 30 | 60>(15);
-  const [breakTime, setBreakTime] = useState<15 | 30 | 60>(15);
+  const [breakTime, setBreakTime] = useState<5 | 15 | 30 | 60>(5);
   const [workTimeLeft, setWorkTimeLeft] = useState(15 * 60);
   const [breakTimeLeft, setBreakTimeLeft] = useState(15 * 60);
   const [isWorkRunning, setIsWorkRunning] = useState(false);
@@ -252,7 +252,7 @@ export const Pomodoro = () => {
   };
 
   // Обработчик выбора времени для отдыха
-  const handleBreakTimeSelect = (time: 15 | 30 | 60) => {
+  const handleBreakTimeSelect = (time: 5 | 15 | 30 | 60) => {
     if (!isBreakRunning) {
       setBreakTime(time);
       setBreakTimeLeft(time * 60);
@@ -346,6 +346,7 @@ export const Pomodoro = () => {
 
       // Второй и последующие клики - изменение времени
       const times: (15 | 30 | 60)[] = [15, 30, 60];
+      const timesBreak: (5 | 15 | 30 | 60)[] = [5, 15, 30, 60];
 
       if (mode === 'work') {
         const newClickCount = clickCount.work + 1;
@@ -361,9 +362,9 @@ export const Pomodoro = () => {
         setClickCount((prev) => ({ ...prev, break: newClickCount }));
 
         if (newClickCount >= 1) {
-          const currentIndex = times.indexOf(breakTime);
+          const currentIndex = timesBreak.indexOf(breakTime);
           const nextIndex = (currentIndex + 1) % times.length;
-          handleBreakTimeSelect(times[nextIndex]);
+          handleBreakTimeSelect(timesBreak[nextIndex]);
         }
       }
     }
