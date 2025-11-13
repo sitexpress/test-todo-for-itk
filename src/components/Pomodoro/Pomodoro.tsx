@@ -418,10 +418,10 @@ export const Pomodoro = () => {
   const dataPomodoro = [
     {
       label: 'Всего',
-      stats: Math.floor((totalWorkTime + totalBreakTime) / 60),
+      stats: workSessions + breakSessions,
       progress: 100,
-      color: 'blue',
-      sessions: workSessions + breakSessions,
+      color: 'blue.6',
+      sessions: Math.ceil((totalWorkTime + totalBreakTime) / 60),
     },
     {
       label: 'Внимание',
@@ -438,7 +438,7 @@ export const Pomodoro = () => {
       label: 'Отдых',
       stats: breakSessions,
       progress: calculateBreakProgress(),
-      color: 'teal',
+      color: 'teal.3',
       timeLeft: breakTimeLeft,
       mode: 'break' as const,
       sessions: breakSessions,
@@ -449,12 +449,12 @@ export const Pomodoro = () => {
 
   const stats = dataPomodoro.map((stat) => {
     const isSelected = 'mode' in stat && selectedMode === stat.mode;
-    const shadowColor = '#d9480f';
 
     // Определяем, можно ли кликать на этот RingProgress
     const isWorkActive = isWorkRunning || isWorkPaused;
     const isBreakActive = isBreakRunning || isBreakPaused;
     let isClickable = false;
+    const shadowColor = isBreakActive ? '#38d9a9' : '#d9480f'
 
     if ('mode' in stat) {
       if (stat.mode === 'work') {
@@ -646,11 +646,7 @@ export const Pomodoro = () => {
                 stack.open('reset-timer');
                 tabsSound();
               }}
-              // onClick={() => {
-              //   resetStatistics();
-              //   tabsSound();
-              // }}
-              // disabled={!isAnyRunning && !isAnyPaused}
+
             >
               <Text component="span" size="xs" ta="center">
                 reset

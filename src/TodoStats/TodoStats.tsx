@@ -1,4 +1,9 @@
-import { IconArrowDownRight, IconArrowUpRight, IconHourglassEmpty } from '@tabler/icons-react';
+import {
+  IconArrowDownRight,
+  IconArrowUpRight,
+  IconHourglassEmpty,
+  IconListCheck,
+} from '@tabler/icons-react';
 import { Center, Flex, Group, Paper, RingProgress, SimpleGrid, Text } from '@mantine/core';
 import { TodoListLCDataType } from '@/pages/Todo-page/Todo.page';
 
@@ -84,15 +89,39 @@ export const TodoStats: React.FC<NumberOfTasksType> = ({ todoListLCData }) => {
 
   return (
     <Flex justify="center">
-      <Group
+      <Flex
+        justify="center"
+        direction="column"
+        align="center"
         style={{ border: '1px solid grey', borderRadius: '30px', maxWidth: '500px' }}
         p={30}
+        pt={10}
         m={10}
+        gap="xs"
       >
-        <SimpleGrid cols={{ base: 3, sm: 1 }} spacing={{ base: 50 }}>
-          {stats}
-        </SimpleGrid>
-      </Group>
+        <Flex direction="row" justify="center" align="center" gap="xs">
+          <IconListCheck />{' '}
+          <Text
+            fw={700}
+            size="lg"
+            ta="center"
+            style={{
+              userSelect: 'none',
+            }}
+          >
+            Todolist
+          </Text>
+        </Flex>
+        <Group
+        // style={{ border: '1px solid grey', borderRadius: '30px', maxWidth: '500px' }}
+        // p={30}
+        // m={10}
+        >
+          <SimpleGrid cols={{ base: 3, sm: 1 }} spacing={{ base: 50 }}>
+            {stats}
+          </SimpleGrid>
+        </Group>
+      </Flex>
     </Flex>
   );
 };
