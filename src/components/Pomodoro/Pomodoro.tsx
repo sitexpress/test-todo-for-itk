@@ -454,7 +454,7 @@ export const Pomodoro = () => {
     const isWorkActive = isWorkRunning || isWorkPaused;
     const isBreakActive = isBreakRunning || isBreakPaused;
     let isClickable = false;
-    const shadowColor = isBreakActive ? '#38d9a9' : '#d9480f'
+    const shadowColor = isBreakActive || isWorkActive ? '#38d9a9' : '#fa5252'
 
     if ('mode' in stat) {
       if (stat.mode === 'work') {
